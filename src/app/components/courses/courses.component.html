@@ -1,0 +1,32 @@
+
+<section>
+
+    <h2>Hitta utbildning</h2>
+    <p>
+        Sök bland universitetets hundratals kurser. Du kan 
+        söka en kurs via fritext eller genom att filtrera på område.
+    </p>
+
+</section>
+
+<section>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Kurskod</th>
+                <th>Kursnamn</th>
+                <th>Progression</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let course of courses">
+                <td>{{ course.courseCode }}</td>
+                <td>{{ course.courseName }}</td>
+                <td>{{ course.progression }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div>{{ errorMessage }}</div>
+
+</section>

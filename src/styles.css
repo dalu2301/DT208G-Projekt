@@ -1,4 +1,101 @@
-/* You can add global styles to this file, and also import other style files */
+/* Ordning är enligt "Cascading", det vill säga */
+/* sist i ordningen har högst specificitet. */
+@layer reset;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@layer global {
+
+    :root {
+        --body-background-color: hsl(210, 20%, 98%);
+        --body-text-color: hsl(217, 19%, 27%);
+    }
+
+}
+
+@layer reset {
+
+    /* Reset, Start */
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    a,
+    a:hover,
+    a:active,
+    a:visited,
+    a:link {
+        text-decoration: none;
+        color: currentColor;
+    }
+
+    body {
+        font-family: Barlow, Arial, Helvetica, sans-serif;
+        background-color: var(--body-background-color);
+        color: var(--body-text-color);
+        font-weight: 400;
+        font-size: 1rem;
+        min-height: 100svh;
+        overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-block-start: 0;
+        margin-block-end: 0;
+        font-weight: 600;
+    }
+
+    img,
+    picture,
+    svg,
+    video {
+        display: block;
+        max-width: 100%;
+    }
+
+    button,
+    input,
+    select {
+        font: inherit;
+    }
+
+    input {
+        padding-inline: 1rem;
+        padding-block: 0.5rem;
+        border-radius: 0.3125rem;
+        margin-block: 0.75rem;
+        border: 0;
+        width: 35%;
+        min-width: 15rem;
+    }
+
+    p,
+    li {
+        max-width: 65ch;
+        line-height: 1.75rem;
+    }
+
+    strong {
+        font-weight: 600;
+    }
+
+    ul {
+        list-style-type: none;
+        margin-block: 0;
+        padding-inline: 0;
+    }
+
+    /* Reset, Stop */
+
+}

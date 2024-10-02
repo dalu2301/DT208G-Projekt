@@ -1,0 +1,18 @@
+.app-wrapper {
+    --app-border-color: hsl(210, 63%, 15%);
+    max-width: 65rem;
+    margin-inline: auto;
+    display: grid;
+    grid-auto-flow: row;
+    
+    & main {
+        min-height: calc(100vh - 5rem);
+        margin-block-start: 5rem;
+        border-left-width: 1px;
+        border-left-style: solid;
+        border-left-color: var(--app-border-color);
+        border-right-width: 1px;
+        border-right-style: solid;
+        border-right-color: var(--app-border-color);
+    }
+}

@@ -1,1 +1,11 @@
-<p>navigation works!</p>
+<nav>
+
+    <h1>Kursuniversitetet</h1>
+
+    <ul>
+        <li *ngFor="let link of navigationLinks">
+            <a routerLink="{{ link.route }}" routerLinkActive="active-link">{{ link.name }}</a>
+        </li>
+    </ul>
+
+</nav>

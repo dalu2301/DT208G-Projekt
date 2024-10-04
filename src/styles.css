@@ -70,16 +70,6 @@
         font: inherit;
     }
 
-    input {
-        padding-inline: 1rem;
-        padding-block: 0.5rem;
-        border-radius: 0.3125rem;
-        margin-block: 0.75rem;
-        border: 0;
-        width: 35%;
-        min-width: 15rem;
-    }
-
     p,
     li {
         max-width: 65ch;

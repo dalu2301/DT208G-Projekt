@@ -11,19 +11,42 @@
 
 <section>
 
+    <form>
+        <label for="course-filter">Filtrera kurser:</label>
+        <input type="text" id="course-filter" placeholder="Filtrera på kurskod eller kursnamn">
+        <label for="subject-filter">Filtrera på ämne:</label>
+        <select id="subject-filter">
+            <option *ngFor="let subject of subjects" value="{{ subject }}">{{ subject }}</option>
+        </select>
+    </form>
+
+</section>
+
+<section>
+
     <table>
         <thead>
             <tr>
                 <th>Kurskod</th>
                 <th>Kursnamn</th>
-                <th>Progression</th>
+                <th>Poäng</th>
+                <th>Ämne</th>
+                <th>Kursplan</th>
+                <th>Lägg till</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let course of courses">
-                <td>{{ course.courseCode }}</td>
-                <td>{{ course.courseName }}</td>
-                <td>{{ course.progression }}</td>
+                <td data-cell="Kurskod">{{ course.courseCode }}</td>
+                <td data-cell="Kursnamn">{{ course.courseName }}</td>
+                <td data-cell="Poäng">{{ course.points }}</td>
+                <td data-cell="Ämne">{{ course.subject }}</td>
+                <td data-cell="Kursplan">
+                    <a href="{{ course.syllabus }}" target="_blank">Kursplan</a>
+                </td>
+                <td data-cell="Lägg till">
+                    <button type="button">Lägg till</button>
+                </td>
             </tr>
         </tbody>
     </table>

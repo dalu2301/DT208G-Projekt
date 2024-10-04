@@ -22,7 +22,7 @@ export class NavigationComponent {
 
   navigationLinks: NavigationLinks[] = [
     { name: 'Våra kurser', route: 'courses' },
-    { name: 'Mitt schema', route: 'schedule' }
+    { name: 'Mitt ramschema', route: 'schedule' }
   ]
 
 }

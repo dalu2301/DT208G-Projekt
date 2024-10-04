@@ -1,12 +1,12 @@
 nav {
     --nav-background-color: hsl(210, 63%, 15%);
     --nav-text-color: hsl(210, 20%, 98%);
+    --nav-active-link-color: hsl(200, 100%, 71%);
     max-width: 65rem;
     margin-inline: auto;
     position: fixed;
     width: 100%;
     height: 5rem;
-    /* border-radius: 0 0 0.325rem 0.325rem; */
     background-color: var(--nav-background-color);
     color: var(--nav-text-color);
     box-shadow: hsla(240, 30%, 28%, 0.25) 0px 2px 5px -1px, hsla(0, 0%, 0%, 0.3) 0px 1px 3px -1px;
@@ -16,6 +16,11 @@ nav {
     grid-template-columns: 1fr auto;
     align-content: center;
 
+    & h1 * {
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+
     & ul {
         display: grid;
         grid-auto-flow: column;
@@ -23,6 +28,9 @@ nav {
     }
 
     .active-link {
-        color: brown;
+        color: var(--nav-active-link-color);
+        line-height: 1.75rem;
+        text-decoration-line: underline;
+        text-underline-offset: 0.5rem;
     }
 }

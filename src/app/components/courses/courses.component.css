@@ -1,5 +1,7 @@
 section {
+    --app-courses-border-color: hsl(210, 63%, 15%);
     padding-inline: 1rem;
+    margin-block-end: 2rem;
 
     & h2 {
         font-size: clamp(2rem, 12vw, 4rem);
@@ -13,14 +15,74 @@ section {
         line-height: 1.5em;
     }
 
+    & form {
+        display: grid;
+        grid-auto-flow: row;
+        row-gap: 0.5rem;
+
+        & label {
+            padding-inline: 0.25rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        & input {
+            width: 100%;
+            border: 0.0625rem solid var(--app-courses-border-color);
+            padding-inline: 1rem;
+            padding-block: 0.5rem;
+            border-radius: 0.3125rem;
+            margin-block: 0.75rem;
+        }
+
+        & input::placeholder {
+            font-style: italic;
+        }
+    }
+
     & table {
+        --table-row-hover-color: hsl(0, 0%, 95%);
+        --button-background-color: hsl(210, 63%, 15%);
+        --button-text-color: hsl(210, 20%, 98%);
+        --button-background-inverse-color: hsl(210, 20%, 98%);
+        --button-text-inverse-color: hsl(210, 52%, 15%);
+        --button-hover-color: hsl(200, 100%, 71%);
         border-collapse: collapse;
         width: 100%;
 
+        & th {
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
         & th,
         & td {
+            font-size: clamp(0.8rem, 2vw, 1rem);
             padding-block: 0.5rem;
+            padding-inline: 0.5rem;
             text-align: left;
+            vertical-align: middle;
+            border-bottom: 0.0625rem solid var(--app-courses-border-color);
+        }
+
+        & button {
+            width: max-content;
+            padding-block: 0.5rem;
+            padding-inline: 0.75rem;
+            background-color: var(--button-background-color);
+            color: var(--button-text-color);
+            border: 0;
+            border-radius: 0.325rem;
+        }
+        
+        & button:hover {
+            background-color: var(--button-hover-color);
+            color: var(--button-text-inverse-color);
+            box-shadow: hsla(240, 30%, 28%, 0.25) 0px 2px 5px -1px, hsla(0, 0%, 0%, 0.3) 0px 1px 3px -1px;
+        }
+
+        & tr:hover {
+            background-color: var(--table-row-hover-color);
         }
     }
 

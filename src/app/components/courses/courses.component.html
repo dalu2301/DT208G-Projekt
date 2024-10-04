@@ -4,21 +4,26 @@
     <h2>Hitta utbildning</h2>
     <p>
         Sök bland universitetets hundratals kurser. Du kan 
-        söka en kurs via fritext eller genom att filtrera på område.
+        söka en kurs via fritext eller genom att avgränsa till ett specifikt område.
     </p>
 
 </section>
 
 <section>
 
-    <form>
+    <form [formGroup]="filterFormGroup">
         <label for="course-filter">Filtrera kurser:</label>
-        <input type="text" id="course-filter" placeholder="Filtrera på kurskod eller kursnamn">
+        <input type="text" id="course-filter" placeholder="Filtrera på kurskod eller kursnamn" formControlName="filterInput" (input)="filterCourses()">
         <label for="subject-filter">Filtrera på ämne:</label>
-        <select id="subject-filter">
+        <select id="subject-filter" formControlName="filterSelect" (change)="filterSelect()">
+            <option value="">Gör ditt val nedan:</option>
             <option *ngFor="let subject of subjects" value="{{ subject }}">{{ subject }}</option>
         </select>
+        <div>
+            Visar {{ numberOfCoursesCurrent}} av totalt {{ numberOfCoursesTotal }} kurser.
+        </div>
     </form>
+    
 
 </section>
 

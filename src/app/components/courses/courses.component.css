@@ -1,7 +1,7 @@
 section {
     --app-courses-border-color: hsl(210, 63%, 15%);
     padding-inline: 1rem;
-    margin-block-end: 2rem;
+    margin-block-end: 1rem;
 
     & h2 {
         font-size: clamp(2rem, 12vw, 4rem);
@@ -26,9 +26,11 @@ section {
             font-weight: 600;
         }
 
-        & input {
+        & input,
+        & select {
             width: 100%;
             border: 0.0625rem solid var(--app-courses-border-color);
+            background-color: transparent;
             padding-inline: 1rem;
             padding-block: 0.5rem;
             border-radius: 0.3125rem;
@@ -37,6 +39,11 @@ section {
 
         & input::placeholder {
             font-style: italic;
+        }
+
+        & div {
+            padding-inline: 0.25rem;
+            font-weight: 600;
         }
     }
 
@@ -79,6 +86,7 @@ section {
             background-color: var(--button-hover-color);
             color: var(--button-text-inverse-color);
             box-shadow: hsla(240, 30%, 28%, 0.25) 0px 2px 5px -1px, hsla(0, 0%, 0%, 0.3) 0px 1px 3px -1px;
+            cursor: pointer;
         }
 
         & tr:hover {

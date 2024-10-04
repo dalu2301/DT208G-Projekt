@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core'
 import { Course } from '../../models/course'
 import { CourseHandlerService } from '../../services/course-handler.service'
 import { CommonModule } from '@angular/common'
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-courses',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css'
@@ -15,12 +17,24 @@ import { CommonModule } from '@angular/common'
 
 export class CoursesComponent implements OnInit {
 
+  filterFormGroup: FormGroup
   courses: Course[] = []
   coursesFiltered: Course[] = []
   subjects: string[] = []
+  subjectsSelected: string = ''
   errorMessage: string = ''
+  numberOfCoursesTotal: number = 0
+  numberOfCoursesCurrent: number = 0
 
-  constructor(private courseHandler: CourseHandlerService) { }
+  constructor(private courseHandler: CourseHandlerService) {
+
+    // Skapa ett Reactive Forms-formulär
+    this.filterFormGroup = new FormGroup({
+      filterInput: new FormControl(''),
+      filterSelect: new FormControl('')
+    })
+
+  }
 
   ngOnInit(): void {
 
@@ -32,7 +46,7 @@ export class CoursesComponent implements OnInit {
         this.courses = courses
         this.coursesFiltered = courses
         this.subjects = this.uniqueSubjects(this.courses)
-        console.log(this.subjects)
+        this.numberOfCoursesTotal = courses.length
 
       },
 
@@ -45,11 +59,11 @@ export class CoursesComponent implements OnInit {
     })
 
   }
-  
+
   // Plockar ut unika ämnesområden för select-elementet
   uniqueSubjects(array: Course[]): string[] {
 
-    const map = new Map();
+    const map = new Map()
 
     for (const item of array) {
 
@@ -61,10 +75,18 @@ export class CoursesComponent implements OnInit {
     }
 
     // ToDo: Sortera alfabetiskt innan retur...
-   
+
     // Konverterar Map till Array innan retur.
     return Array.from(map.values())
 
+  }
+
+  filterCourses() {
+    console.log(this.filterFormGroup.value.filterInput)
+  }
+
+  filterSelect() {
+    console.log(this.filterFormGroup.value.filterSelect)
   }
 
 }

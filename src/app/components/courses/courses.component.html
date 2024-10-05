@@ -15,7 +15,7 @@
         <label for="course-filter">Filtrera kurser:</label>
         <input type="text" id="course-filter" placeholder="Filtrera på kurskod eller kursnamn" formControlName="filterInput" (input)="filterCourses()">
         <label for="subject-filter">Filtrera på ämne:</label>
-        <select id="subject-filter" formControlName="filterSelect" (change)="filterSelect()">
+        <select id="subject-filter" formControlName="filterSelect" (change)="filterCourses()">
             <option value="">Gör ditt val nedan:</option>
             <option *ngFor="let subject of subjects" value="{{ subject }}">{{ subject }}</option>
         </select>
@@ -41,7 +41,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let course of courses">
+            <tr *ngFor="let course of coursesFiltered">
                 <td data-cell="Kurskod">{{ course.courseCode }}</td>
                 <td data-cell="Kursnamn">{{ course.courseName }}</td>
                 <td data-cell="Poäng">{{ course.points }}</td>

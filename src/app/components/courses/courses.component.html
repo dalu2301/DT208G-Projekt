@@ -3,7 +3,7 @@
 
     <h2>Hitta utbildning</h2>
     <p>
-        Sök bland universitetets hundratals kurser. Du kan 
+        Sök bland universitetets tusentals kurser. Du kan 
         söka en kurs via fritext eller genom att avgränsa till ett specifikt område.
     </p>
 
@@ -19,8 +19,10 @@
             <option value="">Gör ditt val nedan:</option>
             <option *ngFor="let subject of subjects" value="{{ subject }}">{{ subject }}</option>
         </select>
-        <div>
-            Visar {{ numberOfCoursesCurrent}} av totalt {{ numberOfCoursesTotal }} kurser.
+        <div id="counter">
+            {{ numberOfCoursesCurrent}} träffar av totalt {{ numberOfCoursesTotal }} kurser.
+            <br>
+            Visar rad {{ sliceStart + 1 }} - {{ sliceEnd }}.
         </div>
     </form>
     
@@ -41,7 +43,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let course of coursesFiltered">
+            <tr *ngFor="let course of coursesFiltered | slice: sliceStart : sliceEnd">
                 <td data-cell="Kurskod">{{ course.courseCode }}</td>
                 <td data-cell="Kursnamn">{{ course.courseName }}</td>
                 <td data-cell="Poäng">{{ course.points }}</td>
@@ -50,11 +52,13 @@
                     <a href="{{ course.syllabus }}" target="_blank">Kursplan</a>
                 </td>
                 <td data-cell="Lägg till">
-                    <button type="button">Lägg till</button>
+                    <button type="button" (click)="addToCourseList(course.courseCode, $event)">Lägg till</button>
                 </td>
             </tr>
         </tbody>
     </table>
     <div>{{ errorMessage }}</div>
-
+    <div id="content">
+        <button type="button" (click)="expandSlice()">Läs in ytterligare 50 rader</button>
+    </div>
 </section>

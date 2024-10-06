@@ -1,5 +1,10 @@
 section {
     --app-courses-border-color: hsl(210, 63%, 15%);
+    --button-background-color: hsl(210, 63%, 15%);
+    --button-text-color: hsl(210, 20%, 98%);
+    --button-background-inverse-color: hsl(210, 20%, 98%);
+    --button-text-inverse-color: hsl(210, 52%, 15%);
+    --button-hover-color: hsl(200, 100%, 71%);
     padding-inline: 1rem;
     margin-block-end: 1rem;
 
@@ -40,22 +45,13 @@ section {
         & input::placeholder {
             font-style: italic;
         }
-
-        & div {
-            padding-inline: 0.25rem;
-            font-weight: 600;
-        }
     }
 
     & table {
         --table-row-hover-color: hsl(0, 0%, 95%);
-        --button-background-color: hsl(210, 63%, 15%);
-        --button-text-color: hsl(210, 20%, 98%);
-        --button-background-inverse-color: hsl(210, 20%, 98%);
-        --button-text-inverse-color: hsl(210, 52%, 15%);
-        --button-hover-color: hsl(200, 100%, 71%);
         border-collapse: collapse;
         width: 100%;
+        margin-block-end: 1rem;
 
         & th {
             text-transform: uppercase;
@@ -71,27 +67,49 @@ section {
             vertical-align: middle;
             border-bottom: 0.0625rem solid var(--app-courses-border-color);
         }
-
-        & button {
-            width: max-content;
-            padding-block: 0.5rem;
-            padding-inline: 0.75rem;
-            background-color: var(--button-background-color);
-            color: var(--button-text-color);
-            border: 0;
-            border-radius: 0.325rem;
-        }
         
-        & button:hover {
-            background-color: var(--button-hover-color);
-            color: var(--button-text-inverse-color);
-            box-shadow: hsla(240, 30%, 28%, 0.25) 0px 2px 5px -1px, hsla(0, 0%, 0%, 0.3) 0px 1px 3px -1px;
-            cursor: pointer;
-        }
-
         & tr:hover {
             background-color: var(--table-row-hover-color);
         }
+    }
+
+    & button {
+        width: max-content;
+        padding-block: 0.5rem;
+        padding-inline: 0.75rem;
+        background-color: var(--button-background-color);
+        color: var(--button-text-color);
+        border: 0;
+        border-radius: 0.325rem;
+    }
+    
+    & button:hover {
+        background-color: var(--button-hover-color);
+        color: var(--button-text-inverse-color);
+        box-shadow: hsla(240, 30%, 28%, 0.25) 0px 2px 5px -1px, hsla(0, 0%, 0%, 0.3) 0px 1px 3px -1px;
+        cursor: pointer;
+    }
+
+    & button:disabled {
+        background-color: hsl(0, 0%, 69%);
+    }
+
+    & button:disabled:hover {
+        color: var(--button-text-color);
+        box-shadow: none;
+        cursor: default;
+    }
+
+    & #counter {
+        padding-inline: 0.25rem;
+        font-weight: 600;
+    }
+
+    & #content {
+        width: 100%;
+        display: grid;
+        place-items: center;
+
     }
 
 }

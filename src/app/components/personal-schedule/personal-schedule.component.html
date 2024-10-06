@@ -1,1 +1,6 @@
-<p>personal-schedule works!</p>
+<!-- Testar lite olika saker för begränsad loop -->
+<p *ngFor="let number of arrayOfNumbers | slice:5:10; index as i">
+    @if (i < 10) {
+        Array: {{ number }} : Index: {{ i }}
+    }
+</p>

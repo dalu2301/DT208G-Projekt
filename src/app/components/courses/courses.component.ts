@@ -3,6 +3,7 @@ import { Course } from '../../models/course'
 import { CourseHandlerService } from '../../services/course-handler.service'
 import { CommonModule } from '@angular/common'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { ScheduleHandlerService } from '../../services/schedule-handler.service'
 
 enum SortOrder {
   'Ascending' = 0,
@@ -31,8 +32,15 @@ export class CoursesComponent implements OnInit {
   errorMessage: string = ''
   numberOfCoursesTotal: number = 0
   numberOfCoursesCurrent: number = 0
+  sliceStart: number = 0
+  sliceEnd: number = 0
 
-  constructor(private courseHandler: CourseHandlerService) {
+  disabledButton: boolean = false
+
+  constructor(
+    private courseHandler: CourseHandlerService,
+    private scheduleHandler: ScheduleHandlerService
+  ) {
 
     // Skapa ett Reactive Forms-formulär
     this.filterFormGroup = new FormGroup({
@@ -61,6 +69,9 @@ export class CoursesComponent implements OnInit {
         // Information om antalet hittade kurser utifrån filtrering
         this.numberOfCoursesTotal = courses.length
         this.numberOfCoursesCurrent = courses.length
+        // Sätter antalet initialt inlästa rader på
+        // sidan till 50 stycken.
+        this.sliceEnd = 50
 
       },
 
@@ -75,28 +86,32 @@ export class CoursesComponent implements OnInit {
   }
 
   /**
-   * Plockar ut unika ämnesområden för Select-elementet.
-   * Prestandamässigt är det nog inte bästa alternativet
-   * att använda Map, men med en så pass lite datamångd
-   * som i detta fall, så fyller det sin funktion väl.
+   * Lägger till en kurs i eget ramschema. 
+   * 
    */
-  uniqueSubjects(array: Course[]): string[] {
+  addToCourseList(courseCode: string, event: Event): void {
 
-    const map = new Map()
+    // TODO: Arbeta vidare på detta sen, om tid finnes...
+    let currentButton = event.currentTarget as HTMLButtonElement
+    currentButton.setAttribute('disabled', 'true')
 
-    for (const item of array) {
+    const courseToAdd: Course[] = this.courses.filter((course) => {
+      return course.courseCode === courseCode
+    })
 
-      // Om värde (subject) redan finns, då skrivs
-      // helt enkelt värdet över, vilket resulterar
-      // i en Map med unika värden.
-      map.set(item.subject, item.subject)
+    this.scheduleHandler.addCourse(courseToAdd[0])
 
+  }
+
+  /**
+   * Läser in ytterligare 50 rader per klick
+   */
+  expandSlice(): void {
+
+    // TODO: Gör denna baserad på återstående antal, och inte 50 alltid...
+    if (this.sliceEnd < this.numberOfCoursesCurrent) {
+      this.sliceEnd += 50
     }
-
-    // TODO: fixa till sortering enligt Locale innan retur (åäö blir i fel ordning)
-
-    // Konverterar Map till Array innan retur.
-    return Array.from(map.values())
 
   }
 
@@ -118,6 +133,9 @@ export class CoursesComponent implements OnInit {
 
     let filterInput: string = this.filterFormGroup.value.filterInput
     let filterSelect: string = this.filterFormGroup.value.filterSelect
+
+    // Nollställer, det vill säga sätter till 50, sidinläsningen.
+    this.sliceEnd = 50
 
     if (filterSelect.length === 0) {
 
@@ -152,7 +170,7 @@ export class CoursesComponent implements OnInit {
       let coursesFilteredTwice: Course[] = []
 
       if (filterInput.length > 0) {
-      
+
         // Fritextfiltrering gjord. Börjar med att avgränsa 
         // filtreringsmängden till det valda ämnesområdet.
         coursesFilteredTwice = this.coursesFiltered = this.courses.filter(subject => {
@@ -178,7 +196,7 @@ export class CoursesComponent implements OnInit {
         this.coursesFiltered = this.courses.filter(subject => {
           return subject.subject.toLowerCase() === filterSelect.toLowerCase()
         })
-  
+
         this.numberOfCoursesCurrent = this.coursesFiltered.length
 
       }
@@ -186,5 +204,30 @@ export class CoursesComponent implements OnInit {
     }
 
   }
-  
+
+  /**
+ * Plockar ut unika ämnesområden för Select-elementet.
+ * Prestandamässigt är det nog inte bästa alternativet
+ * att använda Map, men med en så pass lite datamångd
+ * som i detta fall, så fyller det sin funktion väl.
+ */
+  uniqueSubjects(array: Course[]): string[] {
+
+    const map = new Map()
+
+    for (const item of array) {
+
+      // Om värde (subject) redan finns, då skrivs
+      // helt enkelt värdet över, vilket resulterar
+      // i en Map med unika värden.
+      map.set(item.subject, item.subject)
+
+    }
+
+    // Konverterar Map till Array innan retur.
+    // Sorterar enligt 'sv' för att åtgärda ÅÄÖ
+    return Array.from(map.values()).sort((a: any, b: any) => a.localeCompare(b, 'sv'))
+
+  }
+
 }

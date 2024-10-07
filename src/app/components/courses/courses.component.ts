@@ -34,8 +34,12 @@ export class CoursesComponent implements OnInit {
   numberOfCoursesCurrent: number = 0
   sliceStart: number = 0
   sliceEnd: number = 0
+  sortedCode: number = SortOrder.Ascending
+  sortedName: number = SortOrder.Ascending
+  sortedPoints: number = SortOrder.Ascending
+  sortedSubject: number = SortOrder.Ascending
 
-  disabledButton: boolean = false
+  // disabledButton: boolean = false
 
   constructor(
     private courseHandler: CourseHandlerService,
@@ -69,8 +73,8 @@ export class CoursesComponent implements OnInit {
         // Information om antalet hittade kurser utifrån filtrering
         this.numberOfCoursesTotal = courses.length
         this.numberOfCoursesCurrent = courses.length
-        // Sätter antalet initialt inlästa rader på
-        // sidan till 50 stycken.
+        // Sätter antalet inlästa rader på
+        // sidan till initialt 50 stycken.
         this.sliceEnd = 50
 
       },
@@ -104,13 +108,31 @@ export class CoursesComponent implements OnInit {
   }
 
   /**
-   * Läser in ytterligare 50 rader per klick
+   * Läser in ytterligare rader per klick, default 50
+   * Lösningen bygger på att "slica" listan innan den
+   * skrivt ut. Börjar med rad 1 till och med 50, lägger
+   * sedan på fler rader, det vill säga "slicar" ut en 
+   * större protion av listan, exempelvis rad 1 till och
+   * med 100 etcetera. Försöker dock anpassa antalet 
+   * rader efter hur många som är kvar att läsa in, 
+   * baserat på filtrering.
    */
   expandSlice(): void {
 
-    // TODO: Gör denna baserad på återstående antal, och inte 50 alltid...
     if (this.sliceEnd < this.numberOfCoursesCurrent) {
-      this.sliceEnd += 50
+
+      let difference: number = this.numberOfCoursesCurrent - this.sliceEnd
+
+      if (difference > 50) {
+
+        this.sliceEnd += 50
+
+      } else {
+
+        this.sliceEnd += difference
+
+      }
+
     }
 
   }
@@ -134,8 +156,9 @@ export class CoursesComponent implements OnInit {
     let filterInput: string = this.filterFormGroup.value.filterInput
     let filterSelect: string = this.filterFormGroup.value.filterSelect
 
-    // Nollställer, det vill säga sätter till 50, sidinläsningen.
-    this.sliceEnd = 50
+    // Nollställer radinläsningen innan en ny uträckning görs,
+    // baserad på filtreringen nedan.
+    this.sliceEnd = 0
 
     if (filterSelect.length === 0) {
 
@@ -203,12 +226,100 @@ export class CoursesComponent implements OnInit {
 
     }
 
+    // Nu finns det uppdaterade siffror vad gäller filtrering,
+    // så ett nytt anrop av funktionen för radinläsning görs.
+    this.expandSlice()
+
+  }
+
+  /**
+   * Avgränsningen för sorteringen är att den sorterar
+   * BEFINTLIGT resultat, det vill säga efter en eventuell
+   * filtrering, alltså det som för närvarande finns i 
+   * variabeln coursesFiltered.
+   */
+  sortCourses(column: string): void {
+
+    switch (column) {
+      case 'code':
+
+        if (this.sortedCode === SortOrder.Ascending) {
+
+          this.coursesFiltered.sort((a, b) => (a.courseCode.toLowerCase() < b.courseCode.toLowerCase() ? -1 : 1))
+
+          this.sortedCode = SortOrder.Descending
+
+        } else {
+
+          this.coursesFiltered.sort((a, b) => (a.courseCode.toLowerCase() < b.courseCode.toLowerCase() ? 1 : -1))
+
+          this.sortedCode = SortOrder.Ascending
+
+        }
+
+        break
+      case 'name':
+
+        if (this.sortedName === SortOrder.Ascending) {
+
+          this.coursesFiltered.sort((a, b) => (a.courseName.toLowerCase() < b.courseName.toLowerCase() ? -1 : 1))
+
+          this.sortedName = SortOrder.Descending
+
+        } else {
+
+          this.coursesFiltered.sort((a, b) => (a.courseName.toLowerCase() < b.courseName.toLowerCase() ? 1 : -1))
+
+          this.sortedName = SortOrder.Ascending
+
+        }
+
+        break
+      case 'points':
+
+        if (this.sortedPoints === SortOrder.Ascending) {
+
+          this.coursesFiltered.sort((a, b) => (a.points > b.points ? -1 : 1))
+
+          this.sortedPoints = SortOrder.Descending
+
+        } else {
+
+          this.coursesFiltered.sort((a, b) => (a.points > b.points ? 1 : -1))
+
+          this.sortedPoints = SortOrder.Ascending
+
+        }
+
+        break
+      case 'subject':
+
+        if (this.sortedSubject === SortOrder.Ascending) {
+
+          this.coursesFiltered.sort((a, b) => (a.subject.toLowerCase() < b.subject.toLowerCase() ? -1 : 1))
+
+          this.sortedSubject = SortOrder.Descending
+
+        } else {
+
+          this.coursesFiltered.sort((a, b) => (a.subject.toLowerCase() < b.subject.toLowerCase() ? 1 : -1))
+
+          this.sortedSubject = SortOrder.Ascending
+
+        }
+
+        break
+      default:
+        // Felaktigt val, ignorera...
+        break
+    }
+
   }
 
   /**
  * Plockar ut unika ämnesområden för Select-elementet.
  * Prestandamässigt är det nog inte bästa alternativet
- * att använda Map, men med en så pass lite datamångd
+ * att använda Map, men med en så pass liten datamångd
  * som i detta fall, så fyller det sin funktion väl.
  */
   uniqueSubjects(array: Course[]): string[] {

@@ -4,7 +4,8 @@
     <h2>Hitta utbildning</h2>
     <p>
         Sök bland universitetets tusentals kurser. Du kan 
-        söka en kurs via fritext eller genom att avgränsa till ett specifikt område.
+        söka en kurs via fritext eller genom att avgränsa till 
+        ett specifikt ämnes&shy;område.
     </p>
 
 </section>
@@ -34,12 +35,12 @@
     <table>
         <thead>
             <tr>
-                <th>Kurskod</th>
-                <th>Kursnamn</th>
-                <th>Poäng</th>
-                <th>Ämne</th>
+                <th><span (click)="sortCourses('code');" class="pointer">Kurskod</span></th>
+                <th><span (click)="sortCourses('name');" class="pointer">Kursnamn</span></th>
+                <th><span (click)="sortCourses('points');" class="pointer">Poäng</span></th>
+                <th><span (click)="sortCourses('subject');" class="pointer">Ämne</span></th>
                 <th>Kursplan</th>
-                <th>Lägg till</th>
+                <th>Schema</th>
             </tr>
         </thead>
         <tbody>
@@ -51,7 +52,7 @@
                 <td data-cell="Kursplan">
                     <a href="{{ course.syllabus }}" target="_blank">Kursplan</a>
                 </td>
-                <td data-cell="Lägg till">
+                <td data-cell="Schema">
                     <button type="button" (click)="addToCourseList(course.courseCode, $event)">Lägg till</button>
                 </td>
             </tr>
@@ -59,6 +60,6 @@
     </table>
     <div>{{ errorMessage }}</div>
     <div id="content">
-        <button type="button" (click)="expandSlice()">Läs in ytterligare 50 rader</button>
+        <button type="button" (click)="expandSlice()">Läs in ytterligare rader</button>
     </div>
 </section>

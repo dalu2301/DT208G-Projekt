@@ -60,7 +60,7 @@ section {
 
         & th,
         & td {
-            font-size: clamp(0.8rem, 2vw, 1rem);
+            font-size: 1rem;
             padding-block: 0.5rem;
             padding-inline: 0.5rem;
             text-align: left;
@@ -68,7 +68,7 @@ section {
             border-bottom: 0.0625rem solid var(--app-courses-border-color);
         }
         
-        & tr:hover {
+        & tbody > tr:hover {
             background-color: var(--table-row-hover-color);
         }
     }
@@ -112,4 +112,59 @@ section {
 
     }
 
+    @media (max-width: 48rem) {
+
+        thead {
+            display: grid;
+            justify-content: center;
+
+            & tr > th {
+                border: 0;
+            }
+
+            & tr > th:nth-child(5),
+            & tr > th:nth-child(6) {
+                display: none;
+            }
+        }
+    
+        td {
+            display: grid;
+            gap: 0.5rem;
+            grid-template-columns: 15ch auto;
+            padding-block: 0.5rem;
+            padding-inline: 1rem;
+        }
+    
+        td:first-child {
+            padding-block-start: 1rem;
+        }
+    
+        td:last-child {
+            padding-block-end: 1rem;
+        }
+    
+        td::before {
+            content: attr(data-cell) ": ";
+            font-weight: 700;
+        }
+    
+    }
+    
+    @media (max-width: 26.25rem) {
+    
+        td {
+            grid-template-columns: 1fr;
+        }
+    }
+
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.pointer:hover {
+    text-decoration-line: underline;
+    text-underline-offset: 0.25rem;
 }

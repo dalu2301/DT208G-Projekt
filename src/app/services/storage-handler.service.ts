@@ -9,17 +9,25 @@ export class StorageHandlerService {
 
   constructor() { }
 
-  static getLocalStorage(): Course[] {
-    return []
-  }
+  getLocalStorage(): Course[] {
 
-  static setLocalStorage(courses: Course[]): void {
-    console.log(courses)
-  }
-
-  static deleteLocalStorage(): void {
+    const storageAsString = localStorage.getItem('personal-schedule') as string
+    const storageAsArray = JSON.parse(storageAsString) as Course[]
+    return storageAsArray
 
   }
 
+  setLocalStorage(courses: Course[]): void {
+
+    this.deleteLocalStorage()
+    localStorage.setItem('personal-schedule', JSON.stringify(courses))
+
+  }
+
+  deleteLocalStorage(): void {
+
+    localStorage.removeItem('personal-schedule')
+
+  }
 
 }

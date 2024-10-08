@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Course } from '../models/course'
+import { StorageHandlerService } from './storage-handler.service'
 
 @Injectable({
   providedIn: 'root'
@@ -7,12 +8,30 @@ import { Course } from '../models/course'
 
 export class ScheduleHandlerService {
 
-  constructor() { }
+  constructor(
+    private storageHandler: StorageHandlerService
+  ) { }
 
-  // FLYTTA ÖVER ALL LOGIK FRÅN STORAGE-HANDLER HIT I STÄLLET!
-  addCourse(course: Course): void {
+  addCourse(course: Course[]): void {
 
-    console.log(course)
+    let currentStorage: Course[] | null = this.storageHandler.getLocalStorage()
+
+    if (currentStorage) {
+
+      currentStorage.push(course[0])
+      this.storageHandler.setLocalStorage(currentStorage)
+
+    } else {
+
+      this.storageHandler.setLocalStorage(course)
+
+    }
+
+  }
+
+  getCourses(): Course[] {
+
+    return this.storageHandler.getLocalStorage()
 
   }
 

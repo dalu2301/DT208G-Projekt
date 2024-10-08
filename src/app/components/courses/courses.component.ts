@@ -4,6 +4,7 @@ import { CourseHandlerService } from '../../services/course-handler.service'
 import { CommonModule } from '@angular/common'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { ScheduleHandlerService } from '../../services/schedule-handler.service'
+import { StorageHandlerService } from '../../services/storage-handler.service'
 
 enum SortOrder {
   'Ascending' = 0,
@@ -23,27 +24,27 @@ enum SortOrder {
 
 export class CoursesComponent implements OnInit {
 
-  // Diverse globala variabler
-  filterFormGroup: FormGroup
+  // Diverse globala variabler, A-Ö
   courses: Course[] = []
   coursesFiltered: Course[] = []
-  subjects: string[] = []
-  subjectsSelected: string = ''
   errorMessage: string = ''
-  numberOfCoursesTotal: number = 0
+  filterFormGroup: FormGroup
   numberOfCoursesCurrent: number = 0
-  sliceStart: number = 0
+  numberOfCoursesTotal: number = 0
+  personalSchedule: Course[] | null = []
   sliceEnd: number = 0
+  sliceStart: number = 0
   sortedCode: number = SortOrder.Ascending
   sortedName: number = SortOrder.Ascending
   sortedPoints: number = SortOrder.Ascending
   sortedSubject: number = SortOrder.Ascending
-
-  // disabledButton: boolean = false
+  subjects: string[] = []
+  subjectsSelected: string = ''
 
   constructor(
     private courseHandler: CourseHandlerService,
-    private scheduleHandler: ScheduleHandlerService
+    private scheduleHandler: ScheduleHandlerService,
+    private storageHandler: StorageHandlerService
   ) {
 
     // Skapa ett Reactive Forms-formulär
@@ -66,16 +67,25 @@ export class CoursesComponent implements OnInit {
 
         // Originallistan ("facit")
         this.courses = courses
+
         // Lista som kommer att filtreras
         this.coursesFiltered = courses
+
         // Ämnesområden för select-element
         this.subjects = this.uniqueSubjects(this.courses)
+
         // Information om antalet hittade kurser utifrån filtrering
         this.numberOfCoursesTotal = courses.length
         this.numberOfCoursesCurrent = courses.length
+
         // Sätter antalet inlästa rader på
         // sidan till initialt 50 stycken.
         this.sliceEnd = 50
+
+        // Läser in personligt ramschema (om finnes). Detta 
+        // för att kunna avgöra vilka rader som ska ha en
+        // "disabled"-knapp för "Lägg till".
+        this.personalSchedule = this.storageHandler.getLocalStorage()
 
       },
 
@@ -90,20 +100,68 @@ export class CoursesComponent implements OnInit {
   }
 
   /**
-   * Lägger till en kurs i eget ramschema. 
-   * 
+   * Lägger till en kurs till det egna ramschemat.
    */
   addToCourseList(courseCode: string, event: Event): void {
 
-    // TODO: Arbeta vidare på detta sen, om tid finnes...
+    // Hanterar knappen, det vill säga currentTarget, och
+    // lägger till attributet "disabled", för att förhindra
+    // att kursen kan läggas till flera gånger i ramschemat.
     let currentButton = event.currentTarget as HTMLButtonElement
-    currentButton.setAttribute('disabled', 'true')
+    currentButton.setAttribute('disabled', '')
 
+    // Hämtar kompletterande uppgifter, det vill säga
+    // en komplett representation av interface Course.
     const courseToAdd: Course[] = this.courses.filter((course) => {
       return course.courseCode === courseCode
     })
 
-    this.scheduleHandler.addCourse(courseToAdd[0])
+    // Lägger till kurs med hjälp av dedikerad service.
+    this.scheduleHandler.addCourse(courseToAdd)
+
+    // Läser in det uppdaterade personliga ramschemat i 
+    // minnet, detta för att kunna sätta alla knappar
+    // korrekt till "disabled" där det behövs.
+    this.personalSchedule = this.storageHandler.getLocalStorage()
+
+  }
+
+  /**
+   * Prestandamässigt så är detta kanske inte bästa lösningen,
+   * då en Property-bind är gjord på returvärdet av en metod,
+   * men jag kom inte på något bättre sätt just nu att hantera
+   * "disabled" för redan tillagda kurser. Möjligvis så skulle
+   * man kunnat plocka bort raden från courses[] i stället.
+   */
+  disabledButton(courseCode: string): boolean {
+
+    let codeFound: Course[] = []
+
+    // Inte null, så någon sorts data finns lagrad sedan tidigare.
+    if (this.personalSchedule) {
+
+      // Kontrollerar om just den kurskoden vi hanterar för tillfället
+      // finns med i det personliga ramschemat.
+      codeFound = this.personalSchedule.filter(item => item.courseCode === courseCode)
+
+      if (codeFound.length > 0) {
+
+        // Ja, kurskoden fanns, sätt knapp till "disabled".
+        return true
+
+      } else {
+
+        // Nej, korskoden fanns inte, ignorera och fortsätt.
+        return false
+
+      }
+
+    } else {
+
+      // Inget personligt ramschema finns, bara ignorera och fortsätt.
+      return false
+
+    }
 
   }
 

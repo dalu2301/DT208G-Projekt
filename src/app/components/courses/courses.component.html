@@ -53,7 +53,7 @@
                     <a href="{{ course.syllabus }}" target="_blank">Kursplan</a>
                 </td>
                 <td data-cell="Schema">
-                    <button type="button" (click)="addToCourseList(course.courseCode, $event)">Lägg till</button>
+                    <button type="button" (click)="addToCourseList(course.courseCode, $event)" [disabled]="disabledButton(course.courseCode)">Lägg till</button>
                 </td>
             </tr>
         </tbody>

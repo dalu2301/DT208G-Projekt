@@ -1,0 +1,133 @@
+section {
+    --app-courses-border-color: hsl(210, 63%, 15%);
+    --button-background-color: hsl(210, 63%, 15%);
+    --button-text-color: hsl(210, 20%, 98%);
+    --button-background-inverse-color: hsl(210, 20%, 98%);
+    --button-text-inverse-color: hsl(210, 52%, 15%);
+    --button-hover-color: hsl(200, 100%, 71%);
+    padding-inline: 1rem;
+    padding-block: 0.75rem;
+
+    & h2 {
+        font-size: clamp(2rem, 8vw, 3rem);
+        font-weight: 400;
+        line-height: 1.5em;
+    }
+
+    & p {
+        font-size: clamp(1rem, 5vw, 1.4rem);
+        max-width: 75ch;
+        line-height: 1.5em;
+    }
+
+    & table {
+        --table-row-hover-color: hsl(0, 0%, 95%);
+        border-collapse: collapse;
+        width: 100%;
+        margin-block-end: 1rem;
+
+        & th {
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        & th,
+        & td {
+            font-size: 1rem;
+            padding-block: 0.5rem;
+            padding-inline: 0.5rem;
+            text-align: left;
+            vertical-align: middle;
+            border-bottom: 0.0625rem solid var(--app-courses-border-color);
+        }
+
+        & tbody>tr:hover {
+            background-color: var(--table-row-hover-color);
+        }
+    }
+
+    & button {
+        width: max-content;
+        padding-block: 0.5rem;
+        padding-inline: 0.75rem;
+        background-color: var(--button-background-color);
+        color: var(--button-text-color);
+        border: 0;
+        border-radius: 0.325rem;
+    }
+
+    & button:hover {
+        background-color: var(--button-hover-color);
+        color: var(--button-text-inverse-color);
+        box-shadow: hsla(240, 30%, 28%, 0.25) 0px 2px 5px -1px, hsla(0, 0%, 0%, 0.3) 0px 1px 3px -1px;
+        cursor: pointer;
+    }
+
+    & #counter {
+        padding-inline: 0.25rem;
+        font-weight: 600;
+    }
+
+    & #content {
+        width: 100%;
+        display: grid;
+        place-items: center;
+        padding-block: 2rem;
+
+    }
+
+    @media (max-width: 48rem) {
+
+        thead {
+            display: grid;
+            justify-content: center;
+
+            & tr>th {
+                border: 0;
+            }
+
+            & tr>th:nth-child(5),
+            & tr>th:nth-child(6) {
+                display: none;
+            }
+        }
+
+        td {
+            display: grid;
+            gap: 0.5rem;
+            grid-template-columns: 15ch auto;
+            padding-block: 0.5rem;
+            padding-inline: 1rem;
+        }
+
+        td:first-child {
+            padding-block-start: 1rem;
+        }
+
+        td:last-child {
+            padding-block-end: 1rem;
+        }
+
+        td::before {
+            content: attr(data-cell) ": ";
+            font-weight: 700;
+        }
+
+    }
+
+    @media (max-width: 26.25rem) {
+
+        td {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.pointer:hover {
+    text-decoration-line: underline;
+    text-underline-offset: 0.25rem;
+}

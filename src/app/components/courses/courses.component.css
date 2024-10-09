@@ -6,10 +6,10 @@ section {
     --button-text-inverse-color: hsl(210, 52%, 15%);
     --button-hover-color: hsl(200, 100%, 71%);
     padding-inline: 1rem;
-    margin-block-end: 1rem;
+    padding-block: 0.75rem;
 
     & h2 {
-        font-size: clamp(2rem, 12vw, 4rem);
+        font-size: clamp(2rem, 8vw, 3rem);
         font-weight: 400;
         line-height: 1.5em;
     }

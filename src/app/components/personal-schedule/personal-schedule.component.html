@@ -1,6 +1,77 @@
-<!-- Testar lite olika saker för begränsad loop -->
-<p *ngFor="let number of arrayOfNumbers | slice:5:10; index as i">
-    @if (i < 10) {
-        Array: {{ number }} : Index: {{ i }}
-    }
-</p>
+<section>
+
+    <h2>Personligt ramschema</h2>
+    <p>
+        Detta är ditt personliga ramschema. Komponera innehållet
+        utifrån valfria kurser i vårt kursutbud.
+    </p>
+
+</section>
+
+<section>
+
+    <div id="counter">
+        Ramschemat innehåller
+        @if (numberOfCourses > 1) {
+        {{ numberOfCourses }} stycken kurser.
+        }
+        @else if (numberOfCourses === 0) {
+        inga kurser.
+        }
+        @else {
+        {{ numberOfCourses }} styck kurs.
+        }
+        <br>
+        Summa antal poäng för valda kurser är {{ numberOfPoints }}.
+    </div>
+
+</section>
+
+@if (personalSchedule.length > 0) {
+
+<section>
+
+    <table>
+        <thead>
+            <tr>
+                <th><span (click)="sortCourses('code');" class="pointer">Kurskod</span></th>
+                <th><span (click)="sortCourses('name');" class="pointer">Kursnamn</span></th>
+                <th><span (click)="sortCourses('points');" class="pointer">Poäng</span></th>
+                <th><span (click)="sortCourses('subject');" class="pointer">Ämne</span></th>
+                <th>Kursplan</th>
+                <th>Schema</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let course of personalSchedule">
+                <td data-cell="Kurskod">{{ course.courseCode }}</td>
+                <td data-cell="Kursnamn">{{ course.courseName }}</td>
+                <td data-cell="Poäng">{{ course.points }}</td>
+                <td data-cell="Ämne">{{ course.subject }}</td>
+                <td data-cell="Kursplan">
+                    <a href="{{ course.syllabus }}" target="_blank">Kursplan</a>
+                </td>
+                <td data-cell="Schema">
+                    <button type="button" (click)="removeFromCourseList(course.courseCode)">Ta bort</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div>{{ errorMessage }}</div>
+
+    <div id="content">
+        <button type="button" (click)="emptySchedule()">Töm schemat</button>
+    </div>
+
+</section>
+
+} @else {
+
+<section>
+
+    <p>Du har just nu inga kurser i ditt personliga ramschema.</p>
+
+</section>
+
+}

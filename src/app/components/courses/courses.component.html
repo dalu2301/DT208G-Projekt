@@ -1,10 +1,9 @@
-
 <section>
 
     <h2>Hitta utbildning</h2>
     <p>
-        Sök bland universitetets tusentals kurser. Du kan 
-        söka en kurs via fritext eller genom att avgränsa till 
+        Sök bland universitetets tusentals kurser. Du kan
+        söka en kurs via fritext eller genom att avgränsa till
         ett specifikt ämnes&shy;område.
     </p>
 
@@ -14,7 +13,8 @@
 
     <form [formGroup]="filterFormGroup">
         <label for="course-filter">Filtrera kurser:</label>
-        <input type="text" id="course-filter" placeholder="Filtrera på kurskod eller kursnamn" formControlName="filterInput" (input)="filterCourses()">
+        <input type="text" id="course-filter" placeholder="Filtrera på kurskod eller kursnamn"
+            formControlName="filterInput" (input)="filterCourses()">
         <label for="subject-filter">Filtrera på ämne:</label>
         <select id="subject-filter" formControlName="filterSelect" (change)="filterCourses()">
             <option value="">Gör ditt val nedan:</option>
@@ -26,7 +26,7 @@
             Visar rad {{ sliceStart + 1 }} - {{ sliceEnd }}.
         </div>
     </form>
-    
+
 
 </section>
 
@@ -53,13 +53,17 @@
                     <a href="{{ course.syllabus }}" target="_blank">Kursplan</a>
                 </td>
                 <td data-cell="Schema">
-                    <button type="button" (click)="addToCourseList(course.courseCode, $event)" [disabled]="disabledButton(course.courseCode)">Lägg till</button>
+                    <button type="button" (click)="addToCourseList(course.courseCode, $event)"
+                        [disabled]="disabledButton(course.courseCode)">Lägg till</button>
                 </td>
             </tr>
         </tbody>
     </table>
+    
     <div>{{ errorMessage }}</div>
+    
     <div id="content">
         <button type="button" (click)="expandSlice()">Läs in ytterligare rader</button>
     </div>
+
 </section>

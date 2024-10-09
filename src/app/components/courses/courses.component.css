@@ -109,6 +109,7 @@ section {
         width: 100%;
         display: grid;
         place-items: center;
+        padding-block: 2rem;
 
     }
 

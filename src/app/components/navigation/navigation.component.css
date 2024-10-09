@@ -19,6 +19,18 @@ nav {
     & h1 * {
         text-transform: uppercase;
         font-weight: 400;
+        padding-inline-start: 2.5rem;
+        position: relative;
+    }
+
+    & h1::before {
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        content: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2232px%22%20viewBox%3D%220%20-960%20960%20960%22%20width%3D%2232px%22%20fill%3D%22%23f9fafb%22%3E%3Cpath%20d%3D%22M480-120%20200-272v-240L40-600l440-240%20440%20240v320h-80v-276l-80%2044v240L480-120Zm0-332%20274-148-274-148-274%20148%20274%20148Zm0%20241%20200-108v-151L480-360%20280-470v151l200%20108Zm0-241Zm0%2090Zm0%200Z%22%2F%3E%3C%2Fsvg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
     }
 
     & ul {

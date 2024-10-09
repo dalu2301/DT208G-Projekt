@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-footer',
@@ -7,6 +7,13 @@ import { Component } from '@angular/core';
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })
+
 export class FooterComponent {
+
+  scrollToTop() {
+
+    document.body.scrollTop = document.documentElement.scrollTop = 0
+    
+  }
 
 }

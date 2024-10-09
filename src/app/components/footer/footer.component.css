@@ -1,0 +1,50 @@
+footer {
+    --footer-background-color: hsl(210, 63%, 15%);
+    --footer-text-color: hsl(210, 20%, 98%);
+    --footer-active-link-color: hsl(200, 100%, 71%);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 65rem;
+    margin-inline: auto;
+    width: 100%;
+    height: 15rem;
+    background-color: var(--footer-background-color);
+    color: var(--footer-text-color);
+    padding-inline: 2rem;
+    padding-block: 2rem;
+    margin-block-start: 1rem;
+
+    & h1 * {
+        text-transform: uppercase;
+        font-weight: 400;
+        font-size: 1.5rem;
+    }
+
+    & ul {
+        display: grid;
+        grid-auto-flow: row;
+        gap: 0.25rem;
+        place-items: end;
+    }
+
+    & button {
+        --button-background-color: hsl(210, 20%, 98%);
+        --button-text-color: hsl(210, 52%, 15%);
+        width: max-content;
+        padding-block: 0.25rem;
+        padding-inline: 0.75rem;
+        background-color: var(--button-background-color);
+        color: var(--button-text-color);
+        border: 0;
+        border-radius: 0.325rem;
+    }
+    
+    & button:hover {
+        --button-background-color-hover: hsl(200, 100%, 71%);
+        --button-text-color-hover: hsl(210, 52%, 15%);
+        background-color: var(--button-background-color-hover);
+        cursor: pointer;
+
+    }
+
+}

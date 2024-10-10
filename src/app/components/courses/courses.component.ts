@@ -4,7 +4,6 @@ import { CourseHandlerService } from '../../services/course-handler.service'
 import { CommonModule } from '@angular/common'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { ScheduleHandlerService } from '../../services/schedule-handler.service'
-import { StorageHandlerService } from '../../services/storage-handler.service'
 
 enum SortOrder {
   'Ascending' = 0,
@@ -43,8 +42,7 @@ export class CoursesComponent implements OnInit {
 
   constructor(
     private courseHandler: CourseHandlerService,
-    private scheduleHandler: ScheduleHandlerService,
-    private storageHandler: StorageHandlerService
+    private scheduleHandler: ScheduleHandlerService
   ) {
 
     // Skapa ett Reactive Forms-formulär
@@ -85,7 +83,7 @@ export class CoursesComponent implements OnInit {
         // Läser in personligt ramschema (om finnes). Detta 
         // för att kunna avgöra vilka rader som ska ha en
         // "disabled"-knapp för "Lägg till".
-        this.personalSchedule = this.storageHandler.getLocalStorage()
+        this.personalSchedule = this.scheduleHandler.getCourses()
 
       },
 
@@ -122,7 +120,7 @@ export class CoursesComponent implements OnInit {
     // Läser in det uppdaterade personliga ramschemat i 
     // minnet, detta för att kunna sätta alla knappar
     // korrekt till "disabled" där det behövs.
-    this.personalSchedule = this.storageHandler.getLocalStorage()
+    this.personalSchedule = this.scheduleHandler.getCourses()
 
   }
 

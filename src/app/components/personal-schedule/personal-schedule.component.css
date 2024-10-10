@@ -14,6 +14,11 @@ section {
         line-height: 1.5em;
     }
 
+    & h3 {
+        font-size: 1.5rem;
+        font-weight: 400;
+    }
+
     & p {
         font-size: clamp(1rem, 5vw, 1.4rem);
         max-width: 75ch;

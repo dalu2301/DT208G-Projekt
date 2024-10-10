@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
 import { Course } from '../../models/course'
-import { StorageHandlerService } from '../../services/storage-handler.service'
 import { ScheduleHandlerService } from '../../services/schedule-handler.service'
 
 enum SortOrder {
@@ -32,31 +31,34 @@ export class PersonalScheduleComponent implements OnInit {
   sortedSubject: number = SortOrder.Ascending
 
   constructor(
-    private scheduleHandler: ScheduleHandlerService,
-    private storageHandler: StorageHandlerService
+    private scheduleHandler: ScheduleHandlerService
   ) { }
 
   ngOnInit(): void {
 
     // Läser in befintligt ramschema, om finnes.
-    this.personalSchedule = (this.storageHandler.getLocalStorage()) ? this.storageHandler.getLocalStorage() : []
+    this.personalSchedule = (this.scheduleHandler.getCourses()) ? this.scheduleHandler.getCourses() : []
 
     // Anger totalt antal kurser i befintligt ramschema
     this.numberOfCourses = this.personalSchedule.length
 
+    // Räknar ut totala antalet poäng för valda kurser
     this.calculatePoints()
 
   }
 
   /**
-   * 
+   * Räknar ut det totala poängantalet för det personliga
+   * ramschemat genom att loopa igenom och summera.
    */
   calculatePoints(): void {
+    
+    this.numberOfPoints = 0
 
     if (this.personalSchedule.length > 0) {
-      
+
       for (const course of this.personalSchedule) {
-        
+
         this.numberOfPoints += course.points
 
       }
@@ -66,20 +68,38 @@ export class PersonalScheduleComponent implements OnInit {
   }
 
   /**
-   * 
+   * Erbjuder valet att ta bort hela det personliga ramschemat.
    */
   emptySchedule(): void {
 
+    // Tar bort hela Local Storage.
+    this.scheduleHandler.deleteCourses()
 
+    // "Nollställer" det personliga ramschemat.
+    this.personalSchedule = []
+    this.numberOfCourses = 0
+    this.numberOfPoints = 0
 
   }
 
   /**
-   * 
+   * Tar bort - "filtrerar bort" - den valda kursen från det
+   * personliga ramschemat.
    */
   removeFromCourseList(courseCode: string): void {
 
+    // Skapar en ny temporär Course[] med alla kurser FÖRUTOM aktuell kurs.
+    let filteredSchedule: Course[] = this.personalSchedule.filter((course) => course.courseCode !== courseCode)
+    this.personalSchedule = filteredSchedule
 
+    // Skriver det uppdaterade ramschemat till Local Storage igen.
+    this.scheduleHandler.updateCourses(this.personalSchedule)
+
+    // Uppdaterar totala antalet kurser i ramschemat.
+    this.numberOfCourses = this.personalSchedule.length
+
+    // Uppdaterar totala antalet poäng för valda kurser.
+    this.calculatePoints()
 
   }
 

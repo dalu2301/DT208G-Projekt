@@ -20,9 +20,10 @@
             <option value="">Gör ditt val nedan:</option>
             <option *ngFor="let subject of subjects" value="{{ subject }}">{{ subject }}</option>
         </select>
-        <div id="counter">
+        <div class="counter">
             {{ numberOfCoursesCurrent}} träffar av totalt {{ numberOfCoursesTotal }} kurser.
-            <br>
+        </div>
+        <div class="counter">
             Visar rad {{ sliceStart + 1 }} - {{ sliceEnd }}.
         </div>
     </form>
@@ -62,7 +63,7 @@
 
     <div>{{ errorMessage }}</div>
 
-    <div id="content">
+    <div class="content">
         <button type="button" (click)="expandSlice()">Läs in ytterligare rader</button>
     </div>
 

@@ -100,12 +100,12 @@ section {
         cursor: default;
     }
 
-    & #counter {
+    & .counter {
         padding-inline: 0.25rem;
         font-weight: 600;
     }
 
-    & #content {
+    & .content {
         width: 100%;
         display: grid;
         place-items: center;

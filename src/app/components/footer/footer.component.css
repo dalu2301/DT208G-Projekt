@@ -47,4 +47,29 @@ footer {
 
     }
 
+    & div > #logo {
+        width: 6rem;
+        height: 6rem;
+        background-image: url("../../../../public/logo.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        margin-inline-start: 3.5rem;
+        margin-block-start: 1rem;        
+    }
+
+    @media (max-width: 37.5rem) {
+        grid-template-columns: 1fr;
+        place-items: center;
+
+        & ul {
+            place-items: center;
+        }
+
+        & div > #logo {
+            display: none;
+        }
+
+    }
+
 }

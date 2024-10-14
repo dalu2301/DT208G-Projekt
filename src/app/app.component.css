@@ -13,6 +13,6 @@
     border-right-color: var(--app-border-color);
     
     & main {
-        margin-block-start: 5rem;
+        margin-block-start: 6rem;
     }
 }

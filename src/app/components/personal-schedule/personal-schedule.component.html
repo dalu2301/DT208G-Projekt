@@ -10,7 +10,7 @@
 
 <section>
 
-    <div id="counter">
+    <div class="counter">
         Ramschemat innehåller
         @if (numberOfCourses > 1) {
         {{ numberOfCourses }} stycken kurser.
@@ -21,7 +21,8 @@
         @else {
         {{ numberOfCourses }} styck kurs.
         }
-        <br>
+    </div>
+    <div class="counter">
         Summa antal poäng för valda kurser är {{ numberOfPoints }} poäng.
     </div>
 
@@ -60,7 +61,7 @@
 
     <div>{{ errorMessage }}</div>
 
-    <div id="content">
+    <div class="content">
         <button type="button" (click)="emptySchedule()">Töm schemat</button>
     </div>
 

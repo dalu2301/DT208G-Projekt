@@ -5,7 +5,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component'
 
 export const routes: Routes = [
     { path: '', redirectTo: 'courses', pathMatch: 'full' },
-    { path: 'courses', component: CoursesComponent, title: 'Kurslista' },
-    { path: 'schedule', component: PersonalScheduleComponent, title: 'Personligt ramschema' },
+    { path: 'courses', component: CoursesComponent, title: 'Kursuniversitetet: Kurslista' },
+    { path: 'schedule', component: PersonalScheduleComponent, title: 'Kursuniversitetet: Personligt ramschema' },
     { path: '**', component: NotFoundComponent, title: '404' }
 ]

@@ -68,12 +68,13 @@ section {
         cursor: pointer;
     }
 
-    & #counter {
+    & .counter {
         padding-inline: 0.25rem;
+        padding-block: 0.1rem;
         font-weight: 600;
     }
 
-    & #content {
+    & .content {
         width: 100%;
         display: grid;
         place-items: center;

@@ -1,1 +1,15 @@
-<p>not-found works!</p>
+<section>
+
+    <h2>404</h2>
+
+    <p>Sidan du letar efter finns tyvärr inte.</p>
+
+    <p> Pröva med någon av nedanstående adresser i stället:</p>
+
+    <ul>
+        <li *ngFor="let link of navigation">
+            <a href="{{ link.route }}">{{ link.name }}</a>
+        </li>
+    </ul>
+
+</section>

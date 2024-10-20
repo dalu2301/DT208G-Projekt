@@ -6,7 +6,7 @@
     </h1>
 
     <ul>
-        <li *ngFor="let link of navigationLinks">
+        <li *ngFor="let link of navigation">
             <a routerLink="{{ link.route }}" routerLinkActive="active-link">{{ link.name }}</a>
         </li>
     </ul>

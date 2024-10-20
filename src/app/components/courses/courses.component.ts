@@ -227,7 +227,6 @@ export class CoursesComponent implements OnInit {
             (course.courseName.toLowerCase().includes(filterInput.toLowerCase())) ||
             (course.courseCode.toLocaleLowerCase().includes(filterInput.toLowerCase()))
           )
-
         })
 
         this.numberOfCoursesCurrent = this.coursesFiltered.length
@@ -263,7 +262,6 @@ export class CoursesComponent implements OnInit {
             (course.courseName.toLowerCase().includes(filterInput.toLowerCase())) ||
             (course.courseCode.toLocaleLowerCase().includes(filterInput.toLowerCase()))
           )
-
         })
 
         this.numberOfCoursesCurrent = this.coursesFiltered.length

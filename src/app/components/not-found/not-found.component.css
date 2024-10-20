@@ -1,0 +1,26 @@
+section {
+    padding-inline: 1rem;
+    padding-block: 0.75rem;
+
+    & h2 {
+        font-size: clamp(2rem, 8vw, 3rem);
+        font-weight: 400;
+        line-height: 1.5em;
+    }
+
+    & p {
+        font-size: clamp(1rem, 5vw, 1.4rem);
+        max-width: 75ch;
+        line-height: 1.5em;
+    }
+
+    & ul {
+        list-style-type: disclosure-closed;
+        padding-inline: 1rem;
+    }
+
+    & a {
+        text-decoration: underline;
+    }
+
+}

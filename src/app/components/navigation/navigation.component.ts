@@ -1,11 +1,8 @@
 import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { RouterLink, RouterLinkActive } from '@angular/router'
-
-interface NavigationLinks {
-  name: string,
-  route: string
-}
+import { LinksHandlerService } from '../../services/links-handler.service'
+import { Links } from '../../models/links'
 
 @Component({
   selector: 'app-navigation',
@@ -18,11 +15,16 @@ interface NavigationLinks {
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.css'
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit {
 
-  navigationLinks: NavigationLinks[] = [
-    { name: 'Våra kurser', route: 'courses' },
-    { name: 'Mitt ramschema', route: 'schedule' }
-  ]
+  navigation: Links[] = []
+
+  constructor(private linksHandler: LinksHandlerService) { }
+  
+  ngOnInit(): void {
+    
+    this.navigation = this.linksHandler.getLinks()
+
+  }
 
 }

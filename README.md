@@ -1,27 +1,41 @@
-# AngularApp
+# DT208G - Projekt
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.6.
+Projektet skapades med [Angular CLI](https://github.com/angular/angular-cli) version 18.2.6.
 
-## Development server
+## Grundkrav
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
++ Applikationen skall skapas med Angular och TypeScript.
++ Lösningen skall ha minst två undersidor, en för att söka och visa information om kurser - och en som visar skapat ramschema.
++ Komponenter och routing skalla användas.
++ Minst två stycken services skall skapas, en för kursdata och en för hantering av ramschema.
++ Skapat ramschema skall lagras med hjälp av localStorage, och läsas in vid inladdning av webbsidan.
++ Webbplatsen skall vara snygg och prydlig och fungera väl på stora som små skärmar med bra responsiv design.
++ Källkodens skall versionshanteras med Git.
++ Den färdiga lösning skall publiceras till publikt tillgänglig webbhost.
 
-## Code scaffolding
+### Krav för kurser
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
++ Kunna sortera data på kurskod, kursnamn, poäng, ämne.
++ Att filtrera data på kurskod och kursnamn.
++ Att välja ut kurser från ämne - exempelvis; bara visa kurser som tillhör ämnet "Datateknik"
++ Lägga till kurser till eget ramschema.
++ Se antal kurser i aktuell sökning, exempelvis alla kurser, eller antal kurser i valt urval (ex hur många kurser det blir om enbart "Datateknik"-kurser visas.
 
-## Build
+### Krav för ramschema
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
++ Se valda kurser till ramschemat (dessa ska lagras i localStorage).
++ Se antal sammanlagda högskolepoäng för de valda kurserna.
++ Att kunna plocka bort kurser från ramschemat.
 
-## Running unit tests
+## Lösningsbeskrivning
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Projektet finns publikt tillgängligt på följande [adress](https://dalu2301-dt208g-projekt.netlify.app/)
 
-## Running end-to-end tests
+Alla grundkrav är uppfyllda, och en enklare variant av paginering är implementerad som 
+ett alternativ till en klassisk sidpaginering, det vill säga att en typ av "läs in fler rader" 
+är implementerad.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+I övrigt så består lösningen av fem stycken komponenter, fyra stycken tjänster och två stycken interface. 
+De flesta grundläggande tekniker, såsom klasser, Directives, Interpolation, Event Binding, Attribute Binding och 
+Dependency Injection är tillämpade.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
